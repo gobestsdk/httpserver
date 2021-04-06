@@ -2,8 +2,8 @@ package httpserver
 
 import (
 	"encoding/json"
-	"goapp/log"
-	"goapp/types"
+	"github.com/gobestsdk/log"
+	"github.com/gobestsdk/types"
 	"io/ioutil"
 	"regexp"
 	"time"
