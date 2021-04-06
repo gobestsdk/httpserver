@@ -1,8 +1,8 @@
 package httpserver
 
 import (
-	"goapp/step"
-	"goapp/trace"
+	
+	"github.com/gobestsdk/trace"
 	"net/http"
 	"strings"
 	"time"
@@ -19,7 +19,7 @@ type HttpContext struct {
 	Query map[string]interface{}
 	Trace string
 
-	UsedTime step.Span
+	UsedTime trace.Span
 	//记录上次时间
 	t time.Time
 	//Store 注意，线程并不安全，请勿跨线程使用
@@ -30,7 +30,7 @@ func CreateHttpContext(w http.ResponseWriter, r *http.Request, name string) (hct
 	hctx = new(HttpContext)
 	hctx.Writer = w
 	hctx.Request = r
-	hctx.UsedTime = step.NewStep(name)
+	hctx.UsedTime = trace.NewStep(name)
 	hctx.t = time.Now()
 	hctx.Store = make(map[string]interface{})
 	return
@@ -39,7 +39,7 @@ func CreateHttpContext(w http.ResponseWriter, r *http.Request, name string) (hct
 func (hctx *HttpContext) Reset() *HttpContext {
 	hctx.Writer = nil
 	hctx.Request = nil
-	hctx.UsedTime = step.NewStep("红包")
+	hctx.UsedTime = trace.NewStep("红包")
 	hctx.t = time.Unix(0, 0)
 	hctx.Store = make(map[string]interface{})
 	return hctx
