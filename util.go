@@ -31,6 +31,12 @@ func Getfilter(req *http.Request) (filter map[string]interface{}) {
 			continue
 		}
 
+		int64v, err :=  strconv.ParseInt(v,10,64)
+		if err == nil {
+			filter[k] = int64v
+			continue
+		}
+
 		if m, _ := regexp.MatchString("(-?)d+.(d+)", v); m {
 			floatv, _ := strconv.ParseFloat(v, 64)
 			filter[k] = floatv
