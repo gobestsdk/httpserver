@@ -45,8 +45,7 @@ func (hctx *HttpContext) Reset() *HttpContext {
 	return hctx
 }
 func (hctx *HttpContext) Name()(name string){
-	name=ctx.Request.Method + "_"
-	+ strings.ReplaceAll(ctx.Request.URL.String(),"/","_")
+	name=hctx.Request.Method + "_"+ strings.ReplaceAll(hctx.Request.URL.String(),"/","_")
 	return
 }
 func (hctx *HttpContext) Step(name string) *HttpContext {
