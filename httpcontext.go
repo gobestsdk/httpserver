@@ -44,7 +44,11 @@ func (hctx *HttpContext) Reset() *HttpContext {
 	hctx.Store = make(map[string]interface{})
 	return hctx
 }
-
+func (hctx *HttpContext) Name()(name string){
+	name=ctx.Request.Method + "_"
+	+ strings.ReplaceAll(ctx.Request.URL.String(),"/","_")
+	return
+}
 func (hctx *HttpContext) Step(name string) *HttpContext {
 	hctx.UsedTime.NextStep(name)
 	return hctx
