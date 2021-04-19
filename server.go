@@ -68,9 +68,6 @@ s:
 		syscall.SIGINT,
 		syscall.SIGKILL,
 		syscall.SIGHUP,
-
-		syscall.SIGUSR1,
-		syscall.SIGUSR2,
 	)
 	sig := <-s.quitChan
 	log.Info(log.Fields{
