@@ -31,12 +31,6 @@ func Getfilter(req *http.Request) (filter map[string]interface{}) {
 			continue
 		}
 
-		int64v, err :=  strconv.ParseInt(v,10,64)
-		if err == nil {
-			filter[k] = int64v
-			continue
-		}
-
 		if m, _ := regexp.MatchString("(-?)d+.(d+)", v); m {
 			floatv, _ := strconv.ParseFloat(v, 64)
 			filter[k] = floatv
@@ -49,17 +43,17 @@ func Getfilter(req *http.Request) (filter map[string]interface{}) {
 			continue
 		}
 
-		t, te := time.Parse(types.DateFormat, v)
+		t, te := time.ParseInLocation(types.DateFormat, v, time.Now().Location())
 		if te == nil {
 			filter[k] = t
 			continue
 		}
-		ct, cte := time.Parse(types.CommonDatetime, v)
+		ct, cte := time.ParseInLocation(types.CommonDatetime, v, time.Now().Location())
 		if cte == nil {
 			filter[k] = ct
 			continue
 		}
-		st, ste := time.Parse(types.SimpleDate, v)
+		st, ste := time.ParseInLocation(types.SimpleDate, v, time.Now().Location())
 		if ste == nil {
 			filter[k] = st
 			continue
