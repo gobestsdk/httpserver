@@ -43,22 +43,17 @@ func Getfilter(req *http.Request) (filter map[string]interface{}) {
 			continue
 		}
 
-		t, te := time.ParseInLocation(types.DateFormat, v, time.Now().Location())
+		t, te := types.MustParseDate(v)
 		if te == nil {
 			filter[k] = t
 			continue
 		}
+
 		ct, cte := time.ParseInLocation(types.CommonDatetime, v, time.Now().Location())
 		if cte == nil {
 			filter[k] = ct
 			continue
 		}
-		st, ste := time.ParseInLocation(types.SimpleDate, v, time.Now().Location())
-		if ste == nil {
-			filter[k] = st
-			continue
-		}
-
 		filter[k] = v
 	}
 	return
