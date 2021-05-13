@@ -31,15 +31,6 @@ func Getfilter(req *http.Request) (filter map[string]interface{}) {
 			continue
 		}
 
-		if m, _ := regexp.MatchString("^(-?)d+.(d+)$", v); m {
-			floatv, e := strconv.ParseFloat(v, 64)
-			if e != nil {
-				goto end
-			}
-			filter[k] = floatv
-			continue
-		}
-	end:
 		boolv, er := strconv.ParseBool(v)
 		if er == nil {
 			filter[k] = boolv
@@ -55,6 +46,15 @@ func Getfilter(req *http.Request) (filter map[string]interface{}) {
 		ct, cte := time.ParseInLocation(types.CommonDatetime, v, time.Now().Location())
 		if cte == nil {
 			filter[k] = ct
+			continue
+		}
+		if m, _ := regexp.MatchString(`^(-?)\d+\.(\d+)$`, v); m {
+			floatv, e := strconv.ParseFloat(v, 64)
+			if e != nil {
+				filter[k] = v
+				continue
+			}
+			filter[k] = floatv
 			continue
 		}
 		filter[k] = v
