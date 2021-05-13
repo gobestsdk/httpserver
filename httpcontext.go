@@ -48,7 +48,7 @@ func (hctx *HttpContext) Name() (name string) {
 	return
 }
 func (hctx *HttpContext) Step(name string) *HttpContext {
-	hctx.UsedTime.NextStep(name)
+	hctx.UsedTime.NextStep(name, false)
 	return hctx
 }
 
