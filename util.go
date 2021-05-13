@@ -31,7 +31,7 @@ func Getfilter(req *http.Request) (filter map[string]interface{}) {
 			continue
 		}
 
-		if m, _ := regexp.MatchString("(-?)d+.(d+)", v); m {
+		if m, _ := regexp.MatchString("^(-?)d+.(d+)$", v); m {
 			floatv, _ := strconv.ParseFloat(v, 64)
 			filter[k] = floatv
 			continue
