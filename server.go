@@ -61,6 +61,7 @@ func (s *HttpServer) httpServer() {
 
 // Waitstop 阻塞主线程,直到进程结束
 func (s *HttpServer) Waitstop() {
+	s.Runflag = false
 s:
 	signal.Notify(s.quitChan,
 		os.Interrupt,
@@ -90,6 +91,7 @@ s:
 
 // Waitstop 停止server
 func (s *HttpServer) Stop() {
+	s.Runflag = false
 	ctx, cancel := context.WithTimeout(context.Background(), s.quitTimeout)
 	defer cancel()
 	if err := s.Server.Shutdown(ctx); err != nil {
