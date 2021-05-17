@@ -38,7 +38,7 @@ func CreateHttpContext(w http.ResponseWriter, r *http.Request, name string) (hct
 func (hctx *HttpContext) Reset() *HttpContext {
 	hctx.Writer = nil
 	hctx.Request = nil
-	hctx.UsedTime = trace.NewStep("红包")
+	hctx.UsedTime = trace.NewStep("红包", nil)
 	hctx.t = time.Unix(0, 0)
 	hctx.Store = make(map[string]interface{})
 	return hctx
