@@ -47,8 +47,8 @@ func (hctx *HttpContext) Name() (name string) {
 	name = hctx.Request.Method + "_" + strings.ReplaceAll(hctx.Request.URL.String(), "/", "_")
 	return
 }
-func (hctx *HttpContext) Step(name string) *HttpContext {
-	hctx.UsedTime.NextStep(name, false)
+func (hctx *HttpContext) Step(name string, args interface{}) *HttpContext {
+	hctx.UsedTime.NextStep(name, args, false)
 	return hctx
 }
 

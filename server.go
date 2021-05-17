@@ -20,6 +20,7 @@ type HttpServer struct {
 	Mux    *http.ServeMux
 
 	quitChan    chan os.Signal
+	Runflag     bool
 	quitTimeout time.Duration
 }
 
@@ -29,6 +30,7 @@ func New(serverName string) *HttpServer {
 	s := &HttpServer{
 		name:        serverName,
 		Server:      http.Server{},
+		Runflag:     true,
 		quitChan:    make(chan os.Signal),
 		quitTimeout: 5 * time.Second,
 	}
@@ -83,18 +85,7 @@ s:
 
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), s.quitTimeout)
-	defer cancel()
-	if err := s.Server.Shutdown(ctx); err != nil {
-		log.Error(log.Fields{
-			"app": "Shutdown HttpServer",
-			"err": err.Error(),
-		})
-	}
-	log.Info(log.Fields{
-		"msg": "exiting...",
-	})
-	close(s.quitChan)
+	s.Stop()
 }
 
 // Waitstop 停止server
