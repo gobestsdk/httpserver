@@ -6,6 +6,7 @@ import (
 	"github.com/gobestsdk/types"
 	"io/ioutil"
 	"regexp"
+	"strings"
 	"time"
 
 	"net/http"
@@ -23,7 +24,7 @@ func Getfilter(req *http.Request) (filter map[string]interface{}) {
 			continue
 		}
 
-		v := vs[0]
+		v := strings.TrimSpace(vs[0])
 
 		intv, err := strconv.Atoi(v)
 		if err == nil {
